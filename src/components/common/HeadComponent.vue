@@ -59,7 +59,6 @@ export default {
     url = url.split('/')
     let str = url[url.length-1]==null?'':url[url.length-1].split('?')[0]
     console.log(str)
-
     if(str=='faceRec'||str=='phoneExam'||str=='startExam'||str=='endExam'
     ||str=='examLogin'||str=='Home'||str=='register') {
       this.registerFlag = true
@@ -69,27 +68,41 @@ export default {
       this.loginIndex = '/Login'
     }
 
-    if((str=='faceRec'||str=='phoneExam'||str=='startExam'||str=='endExam')&&(!this.$store.getters.getEntryExam)) {
-      this.name = ''
-      this.flag = false
-      this.$router.push({  
-        path: '/examLogin',
-        name: 'examLogin',  
-        params: {  
-        }  
-     })
-      return
-    } else if((str=='faceRec'||str=='phoneExam'||str=='startExam'||str=='endExam')&&(this.$store.getters.getEntryExam)) {
-      this.name = this.$store.getters.getUserName
-      this.flag = false
-      return
-    }
-
     if(str=='Login'||str=='register'||str=='forgetPass'||str=='examLogin'||str=='Home') {
       this.name = ''
       this.flag = false
       return
     }
+
+    if(str=='startExam'&&(this.$store.getters.getUserId==null)) {
+        this.name = ''
+        this.flag = false
+        this.$router.push({  
+          path: '/examLogin',
+          name: 'examLogin',  
+          params: {  
+          }  
+        })
+        return
+      } else if((str=='faceRec'||str=='phoneExam'||str=='endExam')&&(!this.$store.getters.getEntryExam)) {
+        this.name = ''
+        this.flag = false
+        this.$router.push({  
+          path: '/examLogin',
+          name: 'examLogin',  
+          params: {  
+          }  
+        })
+        return
+      } else if((str=='faceRec'||str=='phoneExam'||str=='endExam')&&(this.$store.getters.getEntryExam)) {
+        this.name = this.$store.getters.getUserName
+        this.flag = false
+        return
+      } else if(str=='startExam'&&(this.$store.getters.getUserId!=null)) {
+        this.name = this.$store.getters.getUserName
+        this.flag = false
+        return
+      }
 
     if(this.getCookie()==undefined||this.getCookie()=='') {
       this.name = ''
@@ -207,24 +220,38 @@ export default {
         this.loginIndex = '/Login'
       }
 
-      if((str=='faceRec'||str=='phoneExam'||str=='startExam'||str=='endExam')&&(!this.$store.getters.getEntryExam)) {
-      this.name = ''
-      this.flag = false
-      this.$router.push({  
-        path: '/examLogin',
-        name: 'examLogin',  
-        params: {  
-        }  
-      })
-        return
-      } else if((str=='faceRec'||str=='phoneExam'||str=='startExam'||str=='endExam')&&(this.$store.getters.getEntryExam)) {
-        this.name = this.$store.getters.getUserName
+      if(str=='Login'||str=='register'||str=='forgetPass'||str=='examLogin'||str=='Home') {
+        this.name = ''
         this.flag = false
         return
       }
 
-      if(str=='Login'||str=='register'||str=='forgetPass'||str=='examLogin'||str=='Home') {
+      if(str=='startExam'&&(this.$store.getters.getUserId==null)) {
         this.name = ''
+        this.flag = false
+        this.$router.push({  
+          path: '/examLogin',
+          name: 'examLogin',  
+          params: {  
+          }  
+        })
+        return
+      } else if((str=='faceRec'||str=='phoneExam'||str=='endExam')&&(!this.$store.getters.getEntryExam)) {
+        this.name = ''
+        this.flag = false
+        this.$router.push({  
+          path: '/examLogin',
+          name: 'examLogin',  
+          params: {  
+          }  
+        })
+        return
+      } else if((str=='faceRec'||str=='phoneExam'||str=='endExam')&&(this.$store.getters.getEntryExam)) {
+        this.name = this.$store.getters.getUserName
+        this.flag = false
+        return
+      } else if(str=='startExam'&&(this.$store.getters.getUserId!=null)) {
+        this.name = this.$store.getters.getUserName
         this.flag = false
         return
       }

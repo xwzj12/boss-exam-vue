@@ -79,7 +79,6 @@ export default {
       sessionStorage.setItem("store", JSON.stringify(this.$store.state));
     });
 
-
     let authorArr = ['Login', 'register', 'examLogin','Home'
             ,'faceRec','phoneExam','startExam','endExam']
 

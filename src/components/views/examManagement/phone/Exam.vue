@@ -129,7 +129,7 @@ export default {
     // 获取配置文件中的API地址
     // console.log(this.$store.getters.getUserId);
     // console.log(this.$store.getters.getExamPublishId);
-    this.apiUrl = process.env.VUE_APP_APIURL;
+    this.apiUrl = 'http://120.26.178.23:8000/';
     this.phoneExamData = this.$store.getters.getphoneExamData;
     this.examStatus = this.phoneExamData.status;
     this.examUserId = this.$store.getters.getUserId;
