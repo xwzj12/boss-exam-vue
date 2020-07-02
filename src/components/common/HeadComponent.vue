@@ -407,12 +407,8 @@ export default {
       url = url.split('/')
       let nowUrl = url[url.length-1].split('?')[0]
       let str = ''
-      console.log(nowUrl)
-      if(nowUrl == 'paper'||nowUrl == 'EndExam'||nowUrl == 'onLineJavaIde') {
-        str = "examineeToken"
-      } else {
-        str = "staffToken"
-      }
+      
+      str = "staffToken"
 
       //字符串拼接cookie
       window.document.cookie = str+ "= "+";expires="+exdate.toGMTString()+"; path=/";
@@ -426,12 +422,22 @@ export default {
           }
         }
       }
-      this.$router.push({  
-        path: '/Login',
-        name: 'Login',  
-        params: {  
-        }  
-     })
+
+      if(this.registerFlag==false) {
+        this.$router.push({  
+          path: '/Login',
+          name: 'Login',  
+          params: {  
+          }  
+        })
+      } else {
+        this.$router.push({  
+          path: '/examLogin',
+          name: 'examLogin',  
+          params: {  
+          }  
+        })
+      }
     },
 
         doOfflineUserByUserId(){

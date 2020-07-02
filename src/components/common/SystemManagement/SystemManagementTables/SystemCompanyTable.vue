@@ -676,6 +676,7 @@ export default {
             }
           ).then(
             (response) => {
+        console.log(response)
               alert(response.data.head.message);
               if(response.data.head.responseCode == "0"){
                 this.dialogFormVisible=false;

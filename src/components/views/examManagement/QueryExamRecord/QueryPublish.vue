@@ -146,7 +146,10 @@ export default {
     },
     //需要修改资源的
     async ShowRecord(row) {
-      this.$store.commit("setqueryPublishId", row.examPublishRecordId);
+      console.log(row);
+      this.$store.commit("setqueryPublishId", row);
+      console.log(row);
+      console.log(this.$store.getters.getqueryPublishId);
       this.$router.push({ path: "/ExamRecordComponent" });
     },
     async queryExamRecord() {
@@ -219,11 +222,11 @@ export default {
     //分页 改变pagesize
     async handleSizeChange(val) {
       this.pageSize = val;
-      this.queryExamRecord();
+      this.queryAll();
     },
     async handleCurrentChange(val) {
       this.currentPage = val;
-      this.queryExamRecord();
+      this.queryAll();
     },
     //分页 改变pageIndex
     getRowKey(row) {

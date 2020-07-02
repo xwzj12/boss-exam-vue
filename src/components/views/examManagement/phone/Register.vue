@@ -158,10 +158,22 @@ export default {
       loadingInstance.close();
     },
     async doUpload() {
-      let formData = new FormData();
-      formData.append("userId", this.userId);
-      formData.append("userPic", this.file);
-      await this.$http.uploadFile("/gateway/exam/user/uploadMyPhoto", formData);
+      await this.$http.post("/gateway/exam/user/uploadMyPhoto", {
+        head: {
+          version: "1",
+          token: this.$store.getters.getToken,
+          businessType: "12",
+          equipId: "1",
+          equipType: 1,
+          encrypt: 1
+        },
+        body: {
+          data: {
+            userId: this.userId,
+            file: this.file
+          }
+        }
+      });
     }
   }
 };

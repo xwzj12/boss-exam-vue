@@ -40,8 +40,7 @@
             </template>
           </el-table-column>
         </el-table>
-      </div>
-      <div class="page">
+        <div class="page">
         <el-pagination
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
@@ -53,6 +52,8 @@
         >
         </el-pagination>
       </div>
+      </div>
+      
     </div>
   </div>
 </template>
@@ -100,14 +101,13 @@ export default {
             data: {
               currentPage: this.currentPage,
               size: this.pageSize,
-              publisher: this.$store.getters.getqueryPublishId
+              examPublishId: this.$store.getters.getqueryPublishId
             }
           }
         }
       );
       if (data) {
         this.tableData = data.body.data.list;
-        this.total = data.body.data.total;
         this.examTime = "";
         this.publishTime = "";
       }
@@ -127,9 +127,7 @@ export default {
           },
           body: {
             data: {
-              currentPage: this.currentPage,
-              size: this.pageSize,
-              publisher: this.$store.getters.getqueryPublishId
+              examPublishId: this.$store.getters.getqueryPublishId
             }
           }
         }
@@ -144,55 +142,11 @@ export default {
     },
     async handleSizeChange(val) {
       this.pageSize = val;
-      let data = await this.$http.post(
-        "/gateway/exam/queryExamRecord/queryRecordByCondition",
-        {
-          head: {
-            version: "1",
-            token: this.$store.getters.getToken,
-            businessType: "12",
-            equipId: "1",
-            equipType: 1,
-            encrypt: 1
-          },
-          body: {
-            data: {
-              currentPage: this.currentPage,
-              size: this.pageSize,
-              publisher: this.$store.getters.getqueryPublishId
-            }
-          }
-        }
-      );
-      if (data) {
-        this.tableData = data.body.data.list;
-      }
+      this.queryAll()
     },
     async handleCurrentChange(val) {
       this.currentPage = val;
-      let data = await this.$http.post(
-        "/gateway/exam/queryExamRecord/queryRecordByCondition",
-        {
-          head: {
-            version: "1",
-            token: this.$store.getters.getToken,
-            businessType: "12",
-            equipId: "1",
-            equipType: 1,
-            encrypt: 1
-          },
-          body: {
-            data: {
-              currentPage: this.currentPage,
-              size: this.pageSize,
-              publisher: this.$store.getters.getqueryPublishId
-            }
-          }
-        }
-      );
-      if (data) {
-        this.tableData = data.body.data.list;
-      }
+      this.queryAll()
     },
     //分页 改变pageIndex
     getRowKey(row) {

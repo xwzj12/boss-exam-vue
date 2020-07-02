@@ -134,8 +134,8 @@
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
             :current-page="1"
-            :page-sizes="[10, 20, 40, 80,160]"
-            :page-size="10"
+            :page-sizes="[5,10, 20, 40, 80,160]"
+            :page-size="5"
             layout="total, sizes, prev, pager, next, jumper"
             :total="this.total"
           ></el-pagination>
@@ -262,7 +262,7 @@
       </div>
     </el-dialog>
     <!-- itemAddForm Dialog add增加增加临时表 弹窗 -->
-    <el-dialog title="添加具体题目参数" :visible.sync="itemAddVisible">
+    <el-dialog title="添加答案" :visible.sync="itemAddVisible">
       <el-form :rules="rules" ref="form" :model="form" size="big" label-width="100px">
         <el-row>
           <el-form-item label="答案：" prop="answer">
@@ -282,7 +282,7 @@
       </div>
     </el-dialog>
     <!-- itemAddEditForm Dialog 增加修改临时表单 弹窗-->
-    <el-dialog title="添加具体题目参数" :visible.sync="itemAddEditVisible">
+    <el-dialog title="修改答案" :visible.sync="itemAddEditVisible">
       <el-form ref="form" :model="itemAddEditForm" size="big" label-width="100px" :rules="rules">
         <el-row>
           <el-form-item label="答案：" prop="answer">
@@ -303,7 +303,7 @@
     </el-dialog>
 
     <!-- editForm 修改弹窗框-->
-    <el-dialog title="修改题目类别" :visible.sync="editVisible">
+    <el-dialog title="修改题目" :visible.sync="editVisible">
       <el-form
         :rules="rules"
         ref="editForm"
@@ -448,7 +448,7 @@
       </div>
     </el-dialog>
     <!-- itemAddEditForm Dialog 修改修改临时表单 弹窗-->
-    <el-dialog title="添加具体配置项参数" :visible.sync="itemEditEditVisible">
+    <el-dialog title="修改答案" :visible.sync="itemEditEditVisible">
       <el-form ref="form" :model="itemEditEditForm" size="big" label-width="100px" :rules="rules">
         <el-row>
           <el-form-item label="答案内容：" prop="answer">
@@ -489,7 +489,7 @@ export default {
       currentPage2: 5,
       currentPage3: 5,
       currentPage4: 4,
-      pageSize: 10, //页大小
+      pageSize: 5, //页大小
       pageIndex: 0, //页数
       total: 10,
       index: 0, //修改表格的下标

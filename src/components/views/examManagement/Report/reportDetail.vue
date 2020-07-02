@@ -30,6 +30,7 @@
           <el-table-column
             prop="code"
             label="序号"
+            type="index"
             width="50"
           ></el-table-column>
           <el-table-column
@@ -37,18 +38,18 @@
             label="名字"
             width="200"
           ></el-table-column>
-          <el-table-column
-            prop="sex"
-            label="性别"
-            width="100"
-          ></el-table-column>
+          <el-table-column label="性别" width="100">
+            <template slot-scope="scope">
+              {{ scope.row.sex == 1 ? "女" : "男" }}
+            </template>
+          </el-table-column>
           <el-table-column
             prop="title"
             label="考试名"
             width="300"
           ></el-table-column>
           <el-table-column
-            prop="subjectvieSubjectScore"
+            prop="subjectiveSubjectScore"
             label="主观题得分"
             width="100"
           ></el-table-column>
@@ -64,17 +65,23 @@
           ></el-table-column>
           <el-table-column
             prop="rank"
+            type="index"
             label="排名"
             width="100"
           ></el-table-column>
           <el-table-column
-            prop="time"
-            label="考试耗时"
+            prop="useTime"
+            label="考试耗时(分钟)"
             width="200"
           ></el-table-column>
           <el-table-column
             prop="systemEvaluate"
             label="能力标签"
+            width="400"
+          ></el-table-column>
+          <el-table-column
+            prop="peopleEvaluate"
+            label="考官评价"
             width="400"
           ></el-table-column>
         </el-table>
@@ -99,7 +106,7 @@ export default {
   components: {},
   created() {
     console.log(this.$store.getters.getqueryPublishId);
-    this.getData();
+    this.reflashAll();
   },
   data() {
     return {
@@ -113,13 +120,17 @@ export default {
       currentPage2: 5,
       currentPage3: 5,
       currentPage4: 4,
-      pageSize: 5,
+      pageSize: 20,
       pageIndex: 1,
-      total: 5
+      total: ""
     };
   },
 
   methods: {
+    reflashAll() {
+      this.getData();
+      this.getTotal();
+    },
     //分页查询
     async getData() {
       this.tableData = [];
@@ -138,7 +149,7 @@ export default {
             data: {
               currentPage: this.pageIndex,
               size: this.pageSize,
-              examPublishRecordId: this.$store.getters.getqueryPublishId
+              examPublishId: this.$store.getters.getqueryPublishId
             }
           }
         }
@@ -146,6 +157,32 @@ export default {
       if (data) {
         this.tableData = [];
         this.tableData = data.body.data.list;
+      }
+    },
+    async getTotal() {
+      this.tableData = [];
+      let data = await this.$http.post(
+        "/gateway/exam/queryExamRecord/queryRecordByCondition",
+        {
+          head: {
+            version: "1",
+            token: this.$store.getters.getToken,
+            businessType: "12",
+            equipId: "1",
+            equipType: 1,
+            encrypt: 1
+          },
+          body: {
+            data: {
+              currentPage: this.pageIndex,
+              size: this.pageSize,
+              examPublishId: this.$store.getters.getqueryPublishId
+            }
+          }
+        }
+      );
+      if (data) {
+        this.total = data.body.data.total;
       }
     },
     // 导出表格数据

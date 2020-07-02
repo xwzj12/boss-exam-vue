@@ -1154,10 +1154,10 @@ export default {
           params: {},
           query: {
             updataFlag: "1",
-            pageId: data.body.data.id,
-            pageName: data.body.data.name,
-            pageScore: data.body.data.score,
-            pageDiscript: data.body.data.discript
+            pageId: data.body.data.paperPojo.id,
+            pageName: data.body.data.paperPojo.name,
+            pageScore: data.body.data.paperPojo.score,
+            pageDiscript: data.body.data.paperPojo.discript
           }
         });
       }

@@ -132,7 +132,7 @@
           >
           </el-input>
         </el-card>
-        <el-button @click="sumbitEvaluate()">提交</el-button>
+        <el-button @click="doBackUpAnswer()">提交</el-button>
       </div>
     </div>
   </div>
@@ -219,11 +219,6 @@ export default {
             for (let temp of tempAnswers) {
               if (temp.paperSubjectId === subject.id) {
                 myAnswer.push(temp.myAnswer);
-                if (temp.score != null) {
-                  subject.myScore += temp.score;
-                } else {
-                  subject.myScore = 0;
-                }
               }
               subject.myAnswer = myAnswer;
             }
@@ -232,7 +227,6 @@ export default {
               if (temp.paperSubjectId === subject.id) {
                 subject.myAnswer = temp.myAnswer;
               }
-              subject.myScore = temp.score;
             }
           }
         }
@@ -243,15 +237,19 @@ export default {
       this.myAnswers.examRecordId = this.examData.examid;
       this.myAnswers.examPublishId = this.examData.examPublishRecordId;
       let records = [];
+      console.log(this.paperData.subjects);
       for (let subject of this.paperData.subjects) {
-        records.push({
-          paperSubjectId: subject.id,
-          myAnswer: subject.myAnswer,
-          score: subject.myScore,
-          evaluate: subject.myEvaluate
-        });
+        if (subject.subjectTypeId === "415836603560972288") {
+          records.push({
+            paperSubjectId: subject.id,
+            myAnswer: subject.myAnswer,
+            score: subject.Score,
+            evaluate: subject.myEvaluate
+          });
+        }
       }
       this.myAnswers.records = records;
+      console.log(records);
       let data = await this.$http.post("/gateway/exam/evaluate/saveScore", {
         head: {
           version: "1",
@@ -268,7 +266,6 @@ export default {
       this.sumbitEvaluate();
       if (data) {
         this.$message.success("提交总评成功,跳转回主页面！");
-        //this.$router.push({ path: "/Judge" });
       }
     },
     async doqueryMarkingStopTime() {
@@ -310,13 +307,17 @@ export default {
           },
           body: {
             data: {
+              examPublishRecordId: this.examData.examPublishRecordId,
+              examinerCode: this.examData.examinerCode,
               id: this.examData.examid,
-              evaluate: this.evaluateText
+              evaluate: this.evaluateText,
+              PaperVo: this.paperData
             }
           }
         });
         this.$message.success("提交总评成功,跳转回主页面！");
-        this.$router.push({ path: "/Judge" });
+        //3测
+        this.$router.push({ path: "/exam/Judge" });
       }
     }
   }

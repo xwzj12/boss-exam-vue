@@ -86,7 +86,7 @@
             @current-change="handleCurrentChange"
             :current-page="currentPage1"
             :page-sizes="[5, 10, 15, 20]"
-            :page-size="10"
+            :page-size="5"
             layout="total, sizes, prev, pager, next, jumper"
             :total="this.total"
           ></el-pagination>
@@ -828,7 +828,7 @@ export default {
       currentPage2: 2,
       currentPage3: 3,
       currentPage4: 4,
-      pageSize: 10,
+      pageSize: 5,
       pageIndex: 0,
       total: 10,
 

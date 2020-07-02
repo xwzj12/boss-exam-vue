@@ -65,6 +65,11 @@ export default {
       ) {
         this.btnDisabled = true;
         this.$message.warning("本场考试还未开始！无法加入");
+      }else if (
+        new Date().getTime() >= new Date(this.phoneExamData.startTime) &&
+        this.phoneExamData.startTime != null
+      ) {
+        this.$message.warning("本场考试已经开始,考试开始时间已经过去！");
       }
     },
     async doStartExam() {

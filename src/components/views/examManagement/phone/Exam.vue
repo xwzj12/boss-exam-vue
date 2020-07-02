@@ -77,7 +77,7 @@
           <div v-else-if="item.subjectTypeId === '415836603560972288'">
             <el-upload
               class="avatar-uploader"
-              :action="apiUrl + '/gateway/exam/exam/backAnswerPic/'"
+              :action="apiUrl + '/exam/backAnswerPic/'"
               :data="{
                 paperSubjectId: item.id
               }"
@@ -129,7 +129,7 @@ export default {
     // 获取配置文件中的API地址
     // console.log(this.$store.getters.getUserId);
     // console.log(this.$store.getters.getExamPublishId);
-    this.apiUrl = 'http://120.26.178.23:8000/';
+    this.apiUrl = 'http://123.57.84.143:9003';
     this.phoneExamData = this.$store.getters.getphoneExamData;
     this.examStatus = this.phoneExamData.status;
     this.examUserId = this.$store.getters.getUserId;
